@@ -1,31 +1,21 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2638
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww18220\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+#a
 
-\f0\fs24 \cf0 #a\
-\
-pd.read_sql(\'91SELECT last FROM authors ORDER BY last DESC\'92, connection)\
-\
-#b\
-\
-pd.read_sql(\'91SELECT title FROM titles ORDER BY title ASC\'92, connection)\
-\
-#c\
-\
-pd.read_sql(\'93\'94\'94SELECT title, copyright, isbn FROM titles, authors INNER JOIN author_TITLE ON authors.id=author_title.id GROUP BY title, copyright, isbn ORDER BY autor_title ASC\'94\'94\'94, connection, index_col=[\'91id\'92])\
-\
-#d\
-\
-cursor = cursor.execute(\'93\'94\'94INSERT INTO authors (first, last) VALUES (\'92New\'92, \'91Author\'92)\'94\'94\'94)\
+pd.read_sql(‘SELECT last FROM authors ORDER BY last DESC’, connection)
 
-\f1\b pd.read_sql('SELECT id, first, last FROM authors', connection, index_col=['id'])
-\f0\b0 \
-\
-#e\
-\
-cursor = cursor.execute(\'93\'94\'94INSERT INTO titles (title, author_isbn) VALUES (\'92New Title\'92, \'91ISBN NUM\'92)\'94\'94\'94)\
+#b
 
-\f1\b pd.read_sql('SELECT title, author_ISBN  FROM titles', connection, index_col=['id'])}
+pd.read_sql(‘SELECT title FROM titles ORDER BY title ASC’, connection)
+
+#c
+
+pd.read_sql(“””SELECT title, copyright, isbn FROM titles, authors INNER JOIN author_TITLE ON authors.id=author_title.id GROUP BY title, copyright, isbn ORDER BY autor_title ASC”””, connection, index_col=[‘id’])
+
+#d
+
+cursor = cursor.execute(“””INSERT INTO authors (first, last) VALUES (’New’, ‘Author’)”””)
+pd.read_sql('SELECT id, first, last FROM authors', connection, index_col=['id'])
+
+#e
+
+cursor = cursor.execute(“””INSERT INTO titles (title, author_isbn) VALUES (’New Title’, ‘ISBN NUM’)”””)
+pd.read_sql('SELECT title, author_ISBN  FROM titles', connection, index_col=['id'])
